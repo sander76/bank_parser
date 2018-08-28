@@ -1,0 +1,15 @@
+
+{
+  "charity": [
+    {
+      "account": "NL304RIO0254649718",
+      "label_name": "proefdiervrij"
+    }
+  ],
+  "taxes": [
+    {
+      "account": "NL85INGB0784830563",
+      "label_name": "insurance"
+    }
+  ]
+}
