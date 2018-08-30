@@ -34,7 +34,8 @@ goede doelen
 
 from collections import OrderedDict
 
-from bankparser.constants import KEY_AMOUNT, KEY_ACCOUNT, KEY_LABEL, months
+from bankparser.constants import KEY_AMOUNT, KEY_ACCOUNT, KEY_LABEL, months, \
+    KEY_LABELS
 from bankparser.helpers import get_transactions
 
 
@@ -131,6 +132,7 @@ def print_monthly(monthly_data: dict, year: str):
 
         # print_output.append("labels:")
 
+        labels = monthly_data.get(KEY_LABELS)
         if labels:
             print_labels(labels, data, print_output)
 

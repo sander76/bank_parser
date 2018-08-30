@@ -9,7 +9,8 @@ install:
   - pip install pytest pytest-cov python-coveralls
 
 script:
-  - python -m pytest
+  - python setup.py install
+  - pytest
 
 after_success:
-- codecov
+- coveralls

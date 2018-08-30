@@ -33,9 +33,7 @@ def test_interpret_transactions(parsed_account_data):
     assert _minus["06"] == -88.52
 
 
-
-
-def test_print_monthly(parsed_account_data, labels):
+def test_print_monthly(parsed_account_data):
     monthly_data = interpret_transactions(parsed_account_data)
     print_monthly(monthly_data, "2018")
 
