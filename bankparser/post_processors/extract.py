@@ -1,11 +1,16 @@
 from pathlib import Path
 
-from bankparser.constants import KEY_OTHER, KEY_ACCOUNT, KEY_DESC
+from bankparser.constants import KEY_OTHER, KEY_DESC, KEY_AMOUNT
 from bankparser.helpers import get_daily_transations, make_mutation, load_json
 from bankparser.post_processors import PostProcessor
 
 
 class Extract(PostProcessor):
+    """A postprocessor which extracts transactions based on account nr
+
+    This is used to manage internal bookings and keep the amount on the
+    internal balance.... or something."""
+
     def __init__(
         self,
         bank_data: dict,
@@ -22,6 +27,9 @@ class Extract(PostProcessor):
         )
 
     def process(self):
+        """Extract the transaction based on the counter account nr and
+        add it as a personal account nr. To keep balance intact the
+        amount is inverted."""
         for year, month, day, transactions in get_daily_transations(
             self._bank_data
         ):
@@ -31,7 +39,7 @@ class Extract(PostProcessor):
                     extracted.append(
                         make_mutation(
                             transaction[KEY_OTHER],
-                            transaction[KEY_ACCOUNT],
+                            -1 * transaction[KEY_AMOUNT],  # invert balance
                             "",
                             transaction[KEY_DESC],
                         )

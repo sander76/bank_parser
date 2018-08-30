@@ -39,9 +39,9 @@ from bankparser.constants import KEY_AMOUNT, KEY_ACCOUNT, KEY_LABEL, months, \
 from bankparser.helpers import get_transactions
 
 
-def make_report(bank_data: dict, year: str, labels: dict, report_file=None):
+def make_report(bank_data: dict, year: str, report_file=None):
     result = interpret_transactions(bank_data)
-    output = print_monthly(result, year, labels=labels)
+    output = print_monthly(result, year)
     if report_file:
         save_report(output, report_file)
     return output
@@ -74,9 +74,6 @@ def get_month_data(account_data: dict, data_name) -> dict:
     try:
         _month_data = account_data[data_name]
     except KeyError:
-        # _month_data = {
-        #     "{:02d}".format(month_nr): 0 for month_nr in range(1, 13)
-        # }
         _month_data = OrderedDict(
             (("{:02d}".format(month_nr), 0) for month_nr in range(1, 13))
         )
@@ -89,10 +86,124 @@ KEY_MINUS = "minus"
 KEY_TOTAL = "total"
 
 
-def interpret_transactions(dct) -> dict:
+def interpret_transactions(bank_data) -> dict:
+    """Interpret all bank transactions. Group them by year and account
+    Amounts are added on monthly basis.
+
+    a = {
+    "labels": [
+        {"label": "charity", "account": "NL49INGB0345299"},
+        {"label": "charity", "account": "NL49INGB0004568299"},
+        {"label": "taxes", "account": "NL49INGB0004568299"},
+    ],
+    "2018": {
+        "NL49INGB0004568299": {  # account
+            "total": OrderedDict( # The totals row.
+                [
+                    ("01", 0), # month 01, total = 0
+                    ("02", 0),
+                    ("03", 0),
+                    ("04", -39.27000000000001),
+                    ("05", 0),
+                    ("06", -2078.81),
+                    ("07", 0),
+                    ("08", 0),
+                    ("09", 0),
+                    ("10", 0),
+                    ("11", 0),
+                    ("12", 0),
+                ]
+            ),
+            "plus": OrderedDict(
+                [
+                    ("01", 0),
+                    ("02", 0),
+                    ("03", 0),
+                    ("04", 57.9),
+                    ("05", 0),
+                    ("06", 0),
+                    ("07", 0),
+                    ("08", 0),
+                    ("09", 0),
+                    ("10", 0),
+                    ("11", 0),
+                    ("12", 0),
+                ]
+            ),
+            "minus": OrderedDict(
+                [
+                    ("01", 0),
+                    ("02", 0),
+                    ("03", 0),
+                    ("04", -97.17),
+                    ("05", 0),
+                    ("06", -2078.81),
+                    ("07", 0),
+                    ("08", 0),
+                    ("09", 0),
+                    ("10", 0),
+                    ("11", 0),
+                    ("12", 0),
+                ]
+            ),
+            "charity": OrderedDict(
+                [
+                    ("01", 0),
+                    ("02", 0),
+                    ("03", 0),
+                    ("04", -97.17),
+                    ("05", 0),
+                    ("06", -20.09),
+                    ("07", 0),
+                    ("08", 0),
+                    ("09", 0),
+                    ("10", 0),
+                    ("11", 0),
+                    ("12", 0),
+                ]
+            ),
+            "taxes": OrderedDict(
+                [
+                    ("01", 0),
+                    ("02", 0),
+                    ("03", 0),
+                    ("04", 0),
+                    ("05", 0),
+                    ("06", -0.47),
+                    ("07", 0),
+                    ("08", 0),
+                    ("09", 0),
+                    ("10", 0),
+                    ("11", 0),
+                    ("12", 0),
+                ]
+            ),
+        },
+        "NL49INGB0004568333": {  # New account
+            "total": OrderedDict(
+                [
+                    ("01", 0),
+                    ("02", 0),
+                    ("03", 0),
+                    ("04", 6556.3099999999995),
+                    ("05", 0),
+                    ("06", -88.52),
+                    ("07", 0),
+                    ("08", 0),
+                    ("09", 0),
+                    ("10", 0),
+                    ("11", 0),
+                    ("12", 0),
+                ]
+            ),
+
+    """
     result = {}
+    labels = bank_data.get(KEY_LABELS)
+    if labels:
+        result[KEY_LABELS] = labels
     # todo: sum transactions for a year.
-    for year, month, day, transaction in get_transactions(dct):
+    for year, month, day, transaction in get_transactions(bank_data):
         _year = get_year(result, year)
         _account = get_account(_year, transaction[KEY_ACCOUNT])
 
@@ -145,12 +256,13 @@ def print_monthly(monthly_data: dict, year: str):
     return print_output
 
 
-FIRST_COL_WIDTH = 10
+FIRST_COL_WIDTH = 30
 VALUES_COL_WIDTH = 10
 
 
 def print_labels(labels, data, container: list):
     _labels = []
+    labels = set([val[KEY_LABEL] for val in labels])
     for label in labels:
         if label in data:
             print_line(label, data[label], _labels)
@@ -160,6 +272,7 @@ def print_labels(labels, data, container: list):
 
 
 def print_key_value(key: str, value, container: list):
+    """Print out a key value pair"""
     val = "{}:{}".format(key.ljust(FIRST_COL_WIDTH), value)
     container.append(val)
 
@@ -178,6 +291,7 @@ def print_line(key, data: dict, container: list):
 
 
 def print_months(container: list):
+    """Print months."""
     month_names = "{}{}".format(
         FIRST_COL_WIDTH * " ",
         "".join(
@@ -191,5 +305,6 @@ def print_months(container: list):
 
 
 def print_hor_line(container: list):
+    """Print horizontal divider."""
     line = FIRST_COL_WIDTH * "-" + 12 * VALUES_COL_WIDTH * "-"
     container.append(line)

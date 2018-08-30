@@ -1,13 +1,14 @@
 import pytest
 
 from bankparser.constants import KEY_ACCOUNT, KEY_AMOUNT
+from bankparser.helpers import get_bank_data
 
 from bankparser.readers.parse_rabo import RaboParser, parse_date
 
 
 @pytest.fixture
 def rabo_parser():
-    dct = {}
+    dct = get_bank_data()
     p = RaboParser(dct, None)
     return p
 

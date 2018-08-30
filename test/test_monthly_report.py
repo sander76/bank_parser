@@ -1,5 +1,6 @@
 import cmath
 
+from bankparser.constants import KEY_LABELS
 from bankparser.reports.monthly_report import (
     get_month_data,
     interpret_transactions,
@@ -7,7 +8,8 @@ from bankparser.reports.monthly_report import (
     KEY_PLUS,
     KEY_MINUS,
     KEY_TOTAL,
-)
+    print_labels,
+    print_key_value, print_line, print_months, print_hor_line)
 
 
 def test_interpret_transactions(parsed_account_data):
@@ -38,18 +40,6 @@ def test_print_monthly(parsed_account_data):
     print_monthly(monthly_data, "2018")
 
 
-# def test_extract_accounts(parsed_account_data):
-#     accounts = extract_accounts(parsed_account_data)
-#     assert 'NL49INGB0004568299' in accounts
-#     assert "2018" in accounts['NL49INGB0004568299'].years
-#     pass
-#
-#
-# def test_output(parsed_account_data):
-#     # accounts = extract_accounts(parsed_account_data)
-#     go(parsed_account_data)
-
-
 def test_get_month_data():
     dct = {}
     val = get_month_data(dct, "plus")
@@ -61,3 +51,39 @@ def test_get_month_data():
     assert "12" in val
     assert "plus" in dct
     assert val["01"] == 0
+
+
+def test_print_labels(parsed_account_data):
+    monthly_data = interpret_transactions(parsed_account_data)
+    out = []
+    labels = parsed_account_data[KEY_LABELS]
+    data = monthly_data["2018"]["NL49INGB0004568299"]
+    print_labels(labels, data, out)
+
+    # The amount of labels added is 2, but one extra header "LABELS" is added
+    # to the list too.
+    assert len(out) == 3
+
+
+def test_print_key_value():
+    container = []
+    print_key_value("value", 1, container)
+    assert len(container) == 1
+
+
+def test_print_line():
+    container = []
+    data = {"a": 1, "b": 2}
+    print_line("value", data, container)
+    assert len(container) == 1
+
+
+def test_print_months():
+    container = []
+    print_months(container)
+    assert len(container) == 1
+
+def test_print_hor_line():
+    container=[]
+    print_hor_line(container)
+    assert len(container)==1

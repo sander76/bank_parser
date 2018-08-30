@@ -2,7 +2,8 @@ import json
 import logging
 import os
 
-from bankparser.constants import KEY_ACCOUNT, KEY_OTHER, KEY_LABEL, KEY_DESC
+from bankparser.constants import KEY_ACCOUNT, KEY_OTHER, KEY_LABEL, KEY_DESC, \
+    KEY_MUTATIONS
 from bankparser.helpers import get_daily_transations, make_mutation
 
 LOGGER = logging.getLogger(__name__)
@@ -35,7 +36,7 @@ def save_file(fname, data: dict):
 
 class Parser:
     def __init__(self, parsed, csv_folder, skip_lines=0):
-        self.parsed = parsed
+        self.parsed = parsed[KEY_MUTATIONS]
         self.csv_folder = csv_folder
         self.skip_lines = skip_lines
 

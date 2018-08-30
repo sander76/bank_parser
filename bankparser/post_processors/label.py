@@ -34,8 +34,8 @@ class Label(PostProcessor):
 
                 label = {}
                 label[KEY_ACCOUNT] = get_item_from_list(cols, 0)
-                label[KEY_DESC] = get_item_from_list(cols, 1)
-                label[KEY_LABEL] = get_item_from_list(cols, 2)
+                label[KEY_LABEL] = get_item_from_list(cols, 1)
+                label[KEY_DESC] = get_item_from_list(cols, 2)
                 label[KEY_TAGS] = get_item_from_list(cols, 3)
 
                 self._labels.append(label)
@@ -53,10 +53,10 @@ class Label(PostProcessor):
         for label in self._labels:
             if label[KEY_ACCOUNT]:
                 if label[KEY_ACCOUNT] == mutation[KEY_OTHER]:
-                    mutation[KEY_LABEL] = label[KEY_LABEL] or label[KEY_DESC]
+                    mutation[KEY_LABEL] = label[KEY_LABEL]
                     return
         for label in self._labels:
             if label[KEY_ACCOUNT] is None:
                 if label[KEY_DESC] in mutation[KEY_DESC]:
-                    mutation[KEY_LABEL] = label[KEY_LABEL] or label[KEY_DESC]
+                    mutation[KEY_LABEL] = label[KEY_LABEL]
                     return

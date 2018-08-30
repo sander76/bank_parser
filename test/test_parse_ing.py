@@ -1,12 +1,13 @@
 import pytest
 
 from bankparser.constants import KEY_ACCOUNT, KEY_AMOUNT
+from bankparser.helpers import get_bank_data
 from bankparser.readers.parse_ing import IngParser, parse_date
 
 
 @pytest.fixture
 def ing_parser():
-    dct = {}
+    dct = get_bank_data()
     p = IngParser(dct, None)
     return p
 

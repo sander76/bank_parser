@@ -20,7 +20,7 @@ def test_setup(labels):
     assert isinstance(labels._labels, list)
     first_label = labels._labels[0]
     assert first_label[KEY_ACCOUNT] == "NL59INGB03032"
-    assert first_label[KEY_DESC] == "NNederlanden"
+    assert first_label[KEY_LABEL] == "NNederlanden"
 
     last_label = labels._labels[-2]
     assert last_label[KEY_LABEL] == "a label"
@@ -33,7 +33,7 @@ def test_setup(labels):
 
 def test_label_mutation(labels):
     labels._labels = [
-        {KEY_ACCOUNT: "1NL12345", KEY_DESC: "description", KEY_LABEL: None},
+        {KEY_ACCOUNT: "1NL12345", KEY_DESC: "description", KEY_LABEL: "description"},
         {KEY_ACCOUNT: "2NL12345", KEY_DESC: "desc", KEY_LABEL: "haslabel"},
         {KEY_ACCOUNT: None, KEY_DESC: "desc1", KEY_LABEL: "label_by_desc"},
         {KEY_ACCOUNT: "4NL12345", KEY_DESC: "desc1", KEY_LABEL: "labelled"}

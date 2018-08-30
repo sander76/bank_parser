@@ -2,6 +2,7 @@ KEY_ACCOUNT = "account"
 KEY_AMOUNT = "amount"
 KEY_OTHER = "other"
 KEY_DESC = "desc"
+KEY_MUTATIONS = "mutations"
 
 KEY_LABEL = "label"
 KEY_TAGS = "tags"
