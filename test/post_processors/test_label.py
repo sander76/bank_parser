@@ -1,5 +1,3 @@
-from pathlib import Path
-
 import pytest
 
 from bankparser.constants import KEY_ACCOUNT, KEY_DESC, KEY_LABEL, KEY_TAGS

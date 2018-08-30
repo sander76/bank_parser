@@ -7,9 +7,9 @@ python:
 
 install:
   - pip install pytest pytest-cov python-coveralls
+  - pip install -e .
 
 script:
-  - python setup.py install
   - pytest
 
 after_success:
