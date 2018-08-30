@@ -2,7 +2,8 @@ import json
 import logging
 import os
 
-from bankparser.constants import KEY_ACCOUNT, KEY_OTHER, KEY_LABEL
+from bankparser.constants import KEY_ACCOUNT, KEY_OTHER, KEY_LABEL, KEY_DESC
+from bankparser.helpers import get_daily_transations, make_mutation
 
 LOGGER = logging.getLogger(__name__)
 
@@ -29,11 +30,12 @@ def save_file(fname, data: dict):
         json.dump(data, f)
 
 
-class Parser:
 
-    def __init__(self, parsed, labels, csv_folder, skip_lines=0):
+
+
+class Parser:
+    def __init__(self, parsed, csv_folder, skip_lines=0):
         self.parsed = parsed
-        self.labels = labels
         self.csv_folder = csv_folder
         self.skip_lines = skip_lines
 
@@ -41,12 +43,6 @@ class Parser:
     def parse_amount(amount: str, *args):
         pass
 
-    @staticmethod
-    def label_mutation(mutation: dict, labels: dict):
-        for key, value in labels.items():
-            for label in value:
-                if label[KEY_ACCOUNT] == mutation[KEY_OTHER]:
-                    mutation[KEY_LABEL] = key
 
     def parse(self, line):
         pass

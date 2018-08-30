@@ -1,7 +1,7 @@
 """Main entry point."""
 import logging
 
-from bankparser.helpers import load_labels
+from bankparser.helpers import load_json
 from bankparser.readers.parse_ing import IngParser
 from bankparser.readers.parser import save_file
 
@@ -14,7 +14,7 @@ if __name__ == "__main__":
 
     folder = "../test/csv/ing"
     label_location = "../test/csv/labels.json"
-    labels = load_labels(label_location)
+    labels = load_json(label_location)
 
     ing_parser = IngParser(dct, labels, folder, skip_lines=1)
 

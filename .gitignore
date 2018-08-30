@@ -1,0 +1,9 @@
+.idea
+.vscode
+env
+venv
+.cache
+cache
+build
+start.py
+.pytest_cache

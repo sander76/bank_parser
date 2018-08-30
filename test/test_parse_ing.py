@@ -5,16 +5,15 @@ from bankparser.readers.parse_ing import IngParser, parse_date
 
 
 @pytest.fixture
-def ing_parser(labels):
+def ing_parser():
     dct = {}
-    p = IngParser(dct, labels, None)
+    p = IngParser(dct, None)
     return p
 
 
 ing_1 = '"20180817","BAXTEY AT ","NL44INGB0004532215","","BA","Af","1,70","Betaalautomaat","Pasvolgnr:906 16-08-2018 12:22 Transactie:N7EG48 Term:50873369"'
 ing_2 = '"20180817","BAXTEY AT ","NL44INGB0004532333","","BA","bij","100","Betaalautomaat","Pasvolgnr:906 16-08-2018 12:22 Transactie:N7EG48 Term:50873369"'
 
-#todo: test labelling
 
 def test_find_cols(ing_parser):
     date, desc, account, other, amount, sign = ing_parser.find_cols(ing_1)

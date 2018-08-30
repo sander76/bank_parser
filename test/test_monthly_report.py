@@ -37,7 +37,7 @@ def test_interpret_transactions(parsed_account_data):
 
 def test_print_monthly(parsed_account_data, labels):
     monthly_data = interpret_transactions(parsed_account_data)
-    print_monthly(monthly_data, "2018", labels=labels)
+    print_monthly(monthly_data, "2018")
 
 
 # def test_extract_accounts(parsed_account_data):

@@ -4,6 +4,9 @@ KEY_OTHER = "other"
 KEY_DESC = "desc"
 
 KEY_LABEL = "label"
+KEY_TAGS = "tags"
+
+KEY_LABELS = "labels"
 
 months = {
     "01": "jan",
