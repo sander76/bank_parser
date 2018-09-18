@@ -1,17 +1,18 @@
+import json
+
 from bankparser.constants import (
     KEY_ACCOUNT,
     KEY_LABEL,
     KEY_OTHER,
-    KEY_DESC,
-    KEY_TAGS,
-    KEY_LABELS)
+    KEY_LABELS,
+    KEY_NAME,
+)
 from bankparser.helpers import get_transactions
 from bankparser.post_processors import PostProcessor
 
 
 class Label(PostProcessor):
-
-    def __init__(self, bank_data: dict, base_folder, label_file="labels.csv"):
+    def __init__(self, bank_data: dict, base_folder, label_file="labels.json"):
         super().__init__(bank_data, base_folder)
         self._label_file = label_file
         self._labels = None
@@ -19,7 +20,7 @@ class Label(PostProcessor):
     def setup(self):
         def get_item_from_list(list, idx, alt=None):
             try:
-                if list[idx] == '':
+                if list[idx] == "":
                     return alt
                 else:
                     return list[idx]
@@ -28,18 +29,18 @@ class Label(PostProcessor):
 
         self._labels = []
         with open(self._base_folder.joinpath(self._label_file)) as fl:
-            next(fl)
-            for line in fl:
-                cols = [val.strip() for val in line.split(',')]
+            _js = json.load(fl)
 
+        # Flatten the labels in a list
+        for group in _js:
+            for entry in group:
                 label = {}
-                label[KEY_ACCOUNT] = get_item_from_list(cols, 0)
-                label[KEY_LABEL] = get_item_from_list(cols, 1)
-                label[KEY_DESC] = get_item_from_list(cols, 2)
-                label[KEY_TAGS] = get_item_from_list(cols, 3)
+                label[KEY_ACCOUNT] = get_item_from_list(entry, 0)
+                label[KEY_LABEL] = get_item_from_list(entry, 1)
+                label[KEY_NAME] = get_item_from_list(entry, 2)
 
                 self._labels.append(label)
-        self._bank_data[KEY_LABELS] = self._labels
+        self._bank_data[KEY_LABELS] = _js
 
     def process(self):
         for year, month, day, transaction in get_transactions(self._bank_data):
@@ -57,6 +58,6 @@ class Label(PostProcessor):
                     return
         for label in self._labels:
             if label[KEY_ACCOUNT] is None:
-                if label[KEY_DESC] in mutation[KEY_DESC]:
+                if label[KEY_NAME].lower() in mutation[KEY_NAME].lower():
                     mutation[KEY_LABEL] = label[KEY_LABEL]
                     return

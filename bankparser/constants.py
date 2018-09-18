@@ -1,6 +1,8 @@
 KEY_ACCOUNT = "account"
+KEY_ACCOUNTS = "accounts"
 KEY_AMOUNT = "amount"
 KEY_OTHER = "other"
+KEY_NAME="name"
 KEY_DESC = "desc"
 KEY_MUTATIONS = "mutations"
 

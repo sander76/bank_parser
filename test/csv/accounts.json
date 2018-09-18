@@ -1,4 +1,4 @@
 {
-    "nlabc123": {"desc": "personal savings"},
-    "NL304RIO0254649718": {"desc": "other savinds"}
+    "nlabc123": {"desc": "personal savings","name":"personal saving"},
+    "NL304RIO0254649718": {"desc": "other savinds","name":"other savings account"}
 }

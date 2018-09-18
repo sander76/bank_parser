@@ -8,9 +8,10 @@ LOGGER = logging.getLogger(__name__)
 ING_COL_ACCOUNT = 2
 ING_COL_SIGN = 5
 ING_COL_AMOUNT = 6
-ING_COL_DESC = 1
+ING_COL_DESC = 8
 ING_COL_DATE = 0
 ING_COL_OTHER = 3
+ING_COL_NAME = 1
 
 ING_DELIMITER = '","'
 ING_SIGN_MINUS = "af"
@@ -24,8 +25,6 @@ def parse_date(date) -> (str, str, str):
     month = date[4:6]
     day = date[6:]
     return year, month, day
-
-
 
 
 class IngParser(Parser):
@@ -63,6 +62,7 @@ class IngParser(Parser):
             cols[ING_COL_DESC],
             cols[ING_COL_ACCOUNT],
             cols[ING_COL_OTHER],
+            cols[ING_COL_NAME],
             cols[ING_COL_AMOUNT],
             cols[ING_COL_SIGN],
         )
@@ -72,15 +72,15 @@ class IngParser(Parser):
 
         LOGGER.debug("Parsing line: %s", line)
 
-        date, desc, account, other, amount, sign = self.find_cols(line)
+        date, desc, account, other, name, amount, sign = self.find_cols(line)
 
         amount = self.parse_amount(amount, sign)
 
-        new_mutation = make_mutation(account, amount, other, desc)
+        new_mutation = make_mutation(account, amount, other, name, desc)
 
         mutations = get_day(self.parsed, *parse_date(date))
 
-        #self.label_mutation(new_mutation, self.labels)
+        # self.label_mutation(new_mutation, self.labels)
 
         if new_mutation not in mutations:
 

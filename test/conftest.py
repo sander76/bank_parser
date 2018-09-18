@@ -24,18 +24,21 @@ def parsed_account_data():
                             "amount": 57.9,
                             "other": "NL53RABO0126644401",
                             "desc": "IG Online B.V.",
+                            "name": "IG Online B.V."
                         },
                         {
                             "account": "NL49INGB0004568333",
                             "amount": -1.6,
                             "other": "",
                             "desc": "BAX DEFG",
+                            "name": "BAX DEFG"
                         },
                         {
                             "account": "NL49INGB0004568299",
                             "amount": -5.67,
                             "other": "NL304RIO0254649718",
                             "desc": "Stg. AVS Proefdiervrij",
+                            "name": "Stg. AVS Proefdiervrij",
                             "label": "charity",
                         },
                     ],
@@ -45,6 +48,7 @@ def parsed_account_data():
                             "amount": -89.9,
                             "other": "NL13ABNA3505417344",
                             "desc": "ABO B NV",
+                            "name": "ABO B NV",
                             "label": "charity",
                         },
                         {
@@ -52,6 +56,7 @@ def parsed_account_data():
                             "amount": 6557.91,
                             "other": "NL41I7GB0770934444",
                             "desc": "Huuglaope BV",
+                            "name": "Huuglaope BV"
                         },
                     ],
                     "17": [
@@ -61,6 +66,7 @@ def parsed_account_data():
                             "other": "",
                             "label": "charity",
                             "desc": "BAX DEFG",
+                            "name": "BAX DEFG"
                         }
                     ],
                 },
@@ -71,12 +77,14 @@ def parsed_account_data():
                             "amount": -2000.0,
                             "other": "NL64RABO0144266451",
                             "desc": "KLUSSENBEIAN",
+                            "name": "KLUSSENBEIAN",
                         },
                         {
                             "account": "NL49INGB0004568299",
                             "amount": -1.6,
                             "other": "",
                             "desc": "BAX DEFG",
+                            "name": "BAX DEFG",
                             "label": "charity",
                         },
                         {
@@ -84,12 +92,14 @@ def parsed_account_data():
                             "amount": -88.52,
                             "other": "NL77RABO0175882910",
                             "desc": "Landal Greenparks",
+                            "name": "Landal Greenparks",
                         },
                         {
                             "account": "NL49INGB0004568299",
                             "amount": -39.99,
                             "other": "",
                             "desc": "Praxn 068 WIEN NLD",
+                            "name": "Praxn 068 WIEN NLD",
                         },
                         {
                             "account": "NL49INGB0004568299",
@@ -97,18 +107,21 @@ def parsed_account_data():
                             "other": "",
                             "desc": "KruiMEGEN NLD",
                             "label": "charity",
+                            "name": "KruiMEGEN NLD",
                         },
                         {
                             "account": "NL49INGB0004568299",
                             "amount": -18.26,
                             "other": "",
                             "desc": "Albeijn 1514 NIJME",
+                            "name": "Albeijn 1514 NIJME",
                         },
                         {
                             "account": "NL49INGB0004568299",
                             "amount": -0.47,
                             "other": "",
                             "desc": "Toolstation AJ ",
+                            "name": "Toolstation AJ ",
                             "label": "taxes"
                         },
                     ]
@@ -122,6 +135,7 @@ def parsed_account_data():
                             "amount": -75.0,
                             "other": "NL85INGB0784830563",
                             "desc": "Cverzekeraar",
+                            "name": "Cverzekeraar",
                             "label": "taxes",
                         }
                     ]

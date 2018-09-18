@@ -19,9 +19,9 @@ line_2 = '"NL77RABO015456615","EUR","RABU","000000000000003626","2017-07-03","20
 #todo: test labelling
 
 def test_find_cols(rabo_parser):
-    date, desc, account, other, amount = rabo_parser.find_cols(line_1)
+    date, desc, account, other,name, amount = rabo_parser.find_cols(line_1)
     assert date == "2017-07-03"
-    assert desc == "Kvat 4960 NEN"
+    assert name == "Kvat 4960 NEN"
     assert account == "NL77RABO015456615"
     assert other == ""
     assert amount == "-13,98"

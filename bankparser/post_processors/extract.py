@@ -1,6 +1,6 @@
 from pathlib import Path
 
-from bankparser.constants import KEY_OTHER, KEY_DESC, KEY_AMOUNT
+from bankparser.constants import KEY_OTHER, KEY_DESC, KEY_AMOUNT, KEY_NAME
 from bankparser.helpers import get_daily_transations, make_mutation, load_json
 from bankparser.post_processors import PostProcessor
 
@@ -41,6 +41,7 @@ class Extract(PostProcessor):
                             transaction[KEY_OTHER],
                             -1 * transaction[KEY_AMOUNT],  # invert balance
                             "",
+                            transaction[KEY_NAME],
                             transaction[KEY_DESC],
                         )
                     )

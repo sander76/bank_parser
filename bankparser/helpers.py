@@ -8,6 +8,7 @@ from bankparser.constants import (
     KEY_OTHER,
     KEY_DESC,
     KEY_MUTATIONS,
+    KEY_NAME,
 )
 
 LOGGER = logging.getLogger(__name__)
@@ -33,7 +34,7 @@ def get_day(data: dict, year: str, month: str, day: str) -> list:
     return get_day(data, year, month, day)
 
 
-def make_mutation(account, amount, other, desc):
+def make_mutation(account, amount, other, name, desc):
     """create a dict containing one mutation."""
     # todo: validate incoming parameters
 
@@ -41,6 +42,7 @@ def make_mutation(account, amount, other, desc):
         KEY_ACCOUNT: account,
         KEY_AMOUNT: amount,
         KEY_OTHER: other,
+        KEY_NAME: name,
         KEY_DESC: desc,
     }
 
@@ -103,5 +105,3 @@ def get_transactions(dct):
             for day, transactions in days.items():
                 for transaction in transactions:
                     yield year, month, day, transaction
-
-

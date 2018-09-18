@@ -17,9 +17,11 @@ ing_2 = '"20180817","BAXTEY AT ","NL44INGB0004532333","","BA","bij","100","Betaa
 
 
 def test_find_cols(ing_parser):
-    date, desc, account, other, amount, sign = ing_parser.find_cols(ing_1)
+    date, desc, account, other,name, amount, sign = ing_parser.find_cols(ing_1)
     assert date == "20180817"
-    assert desc == "BAXTEY AT "
+    assert name == "BAXTEY AT "
+    #todo: fix the extra " sign
+    assert desc == 'Pasvolgnr:906 16-08-2018 12:22 Transactie:N7EG48 Term:50873369"'
     assert account == "NL44INGB0004532215"
     assert other == ""
     assert amount == "1,70"
